@@ -3,13 +3,33 @@
 
 Dependencies: [SDL2](https://github.com/libsdl-org/SDL/releases/)
 
+Sorry! No musl support!
+
 If you'd like to compile for windows, you should rename the main function to WinMain.
 
-Default keybinds:
-z: zoom in
-o: zoom out
-q: increase quality
-w: decrease quality
-Arrows: move
-p: toggle colors
-Escape: quit
+Linux build instructions:<br>
+
+Make sure you have SDL2 installed.  
+For Debian/ubuntu:  
+`# apt install libsdl2-dev`  
+Arch:  
+`# pacman -S sdl2`  
+Fedora:  
+`# dnf install SDL2-devel`  
+
+
+And now you can build it:  
+
+`git clone https://github.com/awinternewman/mandelbrotexplorer.git`  
+`cd mandelbrotexplorer && make`  
+run with:  
+`./mandelbrotexplorer`  
+
+Default keybinds:<br>
+z: zoom in  
+o: zoom out  
+q: increase quality  
+w: decrease quality  
+Arrows: move  
+p: toggle colors  
+Escape: quit  

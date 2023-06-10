@@ -7,7 +7,7 @@ TARGET = mandelexplorer
 
 all: $(TARGET)
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	$(CC) $(OBJS) -o $(TARGET) $(CFLAGS) 
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
