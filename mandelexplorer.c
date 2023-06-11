@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 
 const int WINDOW_WIDTH= 1366;
@@ -22,7 +23,7 @@ int mandelpoint(double point[2], int recursions, int prettycolors) {
 		}
 		// Debug
 		// printf("%d, %d, %d\n", i, (int)(255.0 - (255.0 * ((float)i/(float)recursions))), i/recursions);
-		return (int) ((255*32) - ((255) * ((i*32)/recursions)))/(32+((prettycolors-1)*10));
+		return (int) ((255*32) - ((255) * ((i*32)/recursions)))/(32+((prettycolors-1)*15));
     }
 
 
@@ -50,7 +51,7 @@ void renderMandelbrot(double movex, double movey, double divfact, int recursions
 		}
 		im++;
 	}
-
+	
 	SDL_RenderPresent(renderer);
 
 }
@@ -60,7 +61,6 @@ int function(double movex, double movey, double divfact, int recursions, int pre
 	// wow, creating a window
     SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &renderer);
    	renderMandelbrot(movex, movey, divfact, recursions, prettycolors);
-	
 	// such controls
 	while (1) {
         if (SDL_PollEvent(&event) && event.type == SDL_QUIT)

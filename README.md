@@ -30,6 +30,6 @@ z: zoom in
 o: zoom out  
 q: increase quality  
 w: decrease quality  
-Arrows: move  
+Arrow keys: move  
 p: toggle colors  
 Escape: quit  
