@@ -2,8 +2,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 
-const int WINDOW_WIDTH= 1366;
-const int WINDOW_HEIGHT = 768;
+const int WINDOW_WIDTH= 1280;
+const int WINDOW_HEIGHT = 720;
 
 // Init here so everything can use it
 SDL_Event event;
