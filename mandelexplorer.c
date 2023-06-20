@@ -10,7 +10,7 @@ SDL_Event event;
 SDL_Renderer *renderer;
 SDL_Window *window;
 
-int mandelpoint(double point[2], int recursions, int prettycolors) {
+int mandelpoint(double point[2], int recursions, int prettycolors, int howpretty) {
     int i = 0;
     long double z[2] = {0, 0};
 	long double z1[2] = {0, 0};
@@ -23,11 +23,11 @@ int mandelpoint(double point[2], int recursions, int prettycolors) {
 		}
 		// Debug
 		// printf("%d, %d, %d\n", i, (int)(255.0 - (255.0 * ((float)i/(float)recursions))), i/recursions);
-		return (int) ((255*32) - ((255) * ((i*32)/recursions)))/(32+((prettycolors-1)*15));
+		return (int) (((255*32) - ((255) * ((i*32)/recursions)))/32)*(1+(prettycolors+1)*(15+howpretty));
     }
 
 
-void renderMandelbrot(double movex, double movey, double divfact, int recursions, int prettycolors){
+void renderMandelbrot(double movex, double movey, double divfact, int recursions, int prettycolors, int howpretty){
 	
 	// Uncommenting may solve visual bugs. Clears the screen every redraw
 	// SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -44,7 +44,7 @@ void renderMandelbrot(double movex, double movey, double divfact, int recursions
 		while (jm <= WINDOW_HEIGHT){
 			pointc[1] = movey + ( (double)jm - (0.5 * WINDOW_HEIGHT))/(divfact);
 			
-			bright = mandelpoint(pointc, recursions, prettycolors);
+			bright = mandelpoint(pointc, recursions, prettycolors, howpretty);
 			SDL_SetRenderDrawColor(renderer, bright, bright*.8, bright*.6, 255);
 			SDL_RenderDrawPoint(renderer, im, jm);
 			++jm;
@@ -56,11 +56,11 @@ void renderMandelbrot(double movex, double movey, double divfact, int recursions
 
 }
 
-int function(double movex, double movey, double divfact, int recursions, int prettycolors){
+int function(double movex, double movey, double divfact, int recursions, int prettycolors, int howpretty){
 	
 	// wow, creating a window
     SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &renderer);
-   	renderMandelbrot(movex, movey, divfact, recursions, prettycolors);
+   	renderMandelbrot(movex, movey, divfact, recursions, prettycolors, howpretty);
 	// such controls
 	while (1) {
         if (SDL_PollEvent(&event) && event.type == SDL_QUIT)
@@ -94,6 +94,12 @@ int function(double movex, double movey, double divfact, int recursions, int pre
 				case SDLK_p:
 					prettycolors *= -1;
 					break;
+				case SDLK_LEFTBRACKET:
+					howpretty -= 1;
+					break;
+				case SDLK_RIGHTBRACKET:
+					howpretty += 1;
+					break;
 				case SDLK_ESCAPE:
 					SDL_DestroyRenderer(renderer);
 					SDL_DestroyWindow(window);
@@ -102,7 +108,7 @@ int function(double movex, double movey, double divfact, int recursions, int pre
 					break;
 			}
 			// redraw every time a key is pressed
-			renderMandelbrot(movex, movey, divfact, recursions, prettycolors);
+			renderMandelbrot(movex, movey, divfact, recursions, prettycolors, howpretty);
 		}
     }
     SDL_DestroyRenderer(renderer);
@@ -118,7 +124,8 @@ int main(int argc, char *argv[]) {
 	double translatex = 0.0;
 	double translatey = 0.0;
 	int recursions = 50;
-	int prettycolors = 1; // 1: false, -1: true
-	function(translatex, translatey, zoomfactor, recursions, prettycolors);
+	int howpretty= 0;
+	int prettycolors = -1; // -1: false, 1: true
+	function(translatex, translatey, zoomfactor, recursions, prettycolors, howpretty);
 	return 0;
 }
