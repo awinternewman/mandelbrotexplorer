@@ -33,5 +33,5 @@ w: decrease quality
 Arrow keys: move  
 p: toggle colors  (default is normal, toggles pretty)
 Escape: quit  
-[: change colors in 'pretty' mode
-]: change colors in 'pretty' mode
+[: change colors in 'pretty' mode   
+]: change colors in 'pretty' mode   
